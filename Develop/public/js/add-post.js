@@ -1,7 +1,20 @@
 // new post form
+async function newFormHandler(event) {
+    event.preventDefault();
 
-// get title adn text from form
+    const title = document.querySelector('input[name="title"]').value;
+    const content = document.querySelector('textarea[name="content"]').value;
 
-// new post route
+    const response = await fetch(`/api/posts`, {
+        method: 'POST',
+        body: JSON.stringify({ title, content }),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    if (response.ok) {
+        document.location.replace('/dashboard');
+    } else {
+        alert(response.statusText);
+    }
+}
 
-// if good, reload the page. if not, show error
+document.querySelector('.new-post-form').addEventListener('submit', newFormHandler);
