@@ -1,8 +1,24 @@
 // sign up form
+async function signupFormHandler(event) {
+    event.preventDefault();
 
-// get info from form const
-    // username
-    // email
-    // password
+    const username = document.querySelector('#username-signup').value.trim();
+    const email = document.querySelector('#email-signup').value.trim();
+    const password = document.querySelector('#password-signup').value.trim();
 
-// event listener
+    if (username && email && password) {
+        const response = await fetch('/api/users', {
+            method: 'POST',
+            body: JSON.stringify({ username, email, password }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        if (response.ok) {
+            alert('New Account Success!')
+            document.location.replace('/dashboard');
+        } else {
+            alert(response.statusText);
+        }
+    }
+}
+
+document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);

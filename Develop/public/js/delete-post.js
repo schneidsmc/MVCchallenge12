@@ -1,10 +1,20 @@
 // delete
 
-// get post id from url
+async function deleteFormHandler(event) {
+    event.preventDefault();
 
-// delete the post
+    const id = window.location.toString().split('/')[
+        window.location.toString().split('/').length - 1
+    ];
+    const response = await fetch(`api/posts/${id}`, {
+        method: 'DELETE'
+    });
+    if (response.ok) {
+        document.location.replace('/dashboard');
+    } else {
+        alert(response.statusText);
+    }
+}
 
-// dashboard page, or error
-
-// event listener click
+doxument.queryselector('.delete-post-btn').addEventListener('click', deleteFormHandler);
 

@@ -1,12 +1,24 @@
 // edit funtion
 
-// get post id from url
+async function editFormHandler(event) {
+    event.preventDefault();
 
-// get post title and copy from form
+    const id = window.location.toString().split('/')[
+        window.location.toString().split('/').length - 1
+    ];
+    const title = document.querySelector('input[name="post-title"]').value; 
+    const post_text = document.querySelector('textarea[name="post-text"]').value;
 
-// use the update route PUT
+    const response = await fetch(`/api/posts/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ title, post_text }),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    if (response.ok) {
+        document.location.replace('/dashboard');
+    } else {
+        alert(response.statusText);
+    }
+}
 
-// redirect to dashboard or show error
-
-// event listener submit
-
+document.querySelector('edit-post-form').addEventListener('submit', editFormHandler);
