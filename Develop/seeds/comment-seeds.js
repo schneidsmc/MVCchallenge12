@@ -1,5 +1,5 @@
 // comment from models
-const { Comment } = require('../models/');
+const { Comment } = require('../models');
 
 
 // comment data

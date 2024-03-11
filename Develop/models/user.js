@@ -1,9 +1,6 @@
-// User Model
 
-// Dependancies
-    // sequelize
-    // bcrypt
-const { Model, DataTypes} = require('sequelize');
+
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
 
@@ -42,8 +39,10 @@ User.init(
             validate: {
                 len: [4]
             }
-        },
-        hooks:{
+        }
+    },
+    {
+        hooks: {
             async beforeCreate(newUserData) {
                 newUserData.password = await bcrypt.hash(newUserData.password, 10);
                 return newUserData;
@@ -53,25 +52,12 @@ User.init(
                 return updatedUserData;
             }
         },
-        sequelize: {
-            freezeTableName: true,
-            underscored: true,
-            modelName: 'user'
-        }
+        sequelize: sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'user'
     }
-)
-// create user model
-    // set up a method to run on a user instance to check password
-    // hased database password
+);
 
-// tables/columns config
-    // username
-    // email
-    // password
-
-// hooks for password hashing
-    // before create hook
-    // before update hook
-
-// export
 module.exports = User;

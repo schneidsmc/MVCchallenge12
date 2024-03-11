@@ -1,16 +1,14 @@
+
+
 // COMMENT MODEL
 
-
-// Dependancies
-    // sequelize
-const { Model, DataTypes} = require('sequelize');
+// Dependencies
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Comment extends Model {}
-// table/column comfiguration
-    // comment-text
-    // user-id
-    // post-id
+
+// Table/column configuration
 Comment.init(
     {
         id: {
@@ -39,14 +37,16 @@ Comment.init(
                 model: 'post',
                 key: 'id'
             }
-        },
-        sequelize: {
-            freezeTableName: true,
-            underscored: true,
-            modelName: 'comment'
         }
+    },
+    {
+        sequelize: sequelize, // Pass the Sequelize instance 
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'comment' // Specify the correct model name
     }
-)
+);
 
 // Export
 module.exports = Comment;

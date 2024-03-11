@@ -1,16 +1,13 @@
-// POST MODEL
 
-// Dependancies
-    // sequelize
-const { Model, DataTypes} = require('sequelize');
+//// POST MODEL
+
+// Dependencies
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-
 class Post extends Model {}
-// table/column config
-    // title
-    // content
-    // user-id
+
+// Table/column config
 Post.init(
     {
         id: {
@@ -37,13 +34,15 @@ Post.init(
                 key: 'id'
             }
         },
-        sequelize: {
-            freezeTableName: true,
-            underscored: true,
-            modelName: 'post'
-        }
+    },
+    {
+        sequelize: sequelize, // Pass the Sequelize instance correctly
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'post', // Specify the correct model name
     }
-)
+);
 
 // Export
 module.exports = Post;
